@@ -13,9 +13,9 @@ exports.handler = (event, context, callback) => {
     return;
   };
   
-  
-    //connection.query('SELECT * FROM customers;', function (error, results, fields) {
-    connection.query('INSERT INTO customers (name, value) values ("testName", "testValue");', function (error, results, fields) {
+  var sql = 'INSERT INTO customers (name, value) values (?,?);';
+  //var sql ='SELECT * FROM customers;';
+    connection.query(sql, [event.name, event.value], function (error, results, fields) {
         console.log('e', error);
         console.log('r', results);
         callback(null, {});
