@@ -12,13 +12,19 @@ exports.handler = (event, context, callback) => {
     console.error('error connecting: ' + err.stack);
     return;
   };
-  
+  var response = {
+      statusCode: 200,
+       headers: {
+                'Content-Type': 'application/json'
+              },
+        body: JSON.stringify('Success for Days')
+  }
   var sql = 'INSERT INTO customers (name, value) values (?,?);';
   //var sql ='SELECT * FROM customers;';
     connection.query(sql, [event.name, event.value], function (error, results, fields) {
         console.log('e', error);
         console.log('r', results);
-        callback(null, {});
+        callback(null, response);
         connection.destroy();
         });
     
