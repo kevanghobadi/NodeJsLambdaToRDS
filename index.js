@@ -19,9 +19,11 @@ exports.handler = (event, context, callback) => {
               },
         body: JSON.stringify('Success for Days')
   }
-  var sql = 'INSERT INTO customers (name, value) values (?,?);';
-  //var sql ='SELECT * FROM customers;';
-    connection.query(sql, [event.name, event.value], function (error, results, fields) {
+  //var sql = 'INSERT INTO customers (name, value) values (?,?);';
+  var sql ='select * FROM customers;';
+  //var sql ='delete FROM customers'
+  var object = JSON.parse(event.body)
+    connection.query(sql, [object.name, object.value], function (error, results, fields) {
         console.log('e', error);
         console.log('r', results);
         callback(null, response);
