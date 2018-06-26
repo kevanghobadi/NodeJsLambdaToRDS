@@ -17,13 +17,14 @@ exports.handler = (event, context, callback) => {
         connection.connect(function(err) {
             if (err) {
                 console.error('error connecting: ' + err.stack);
-                return;
+                reject(err);
             };
             connection.query(sql, [name], function(error, results, fields) {
                 connection.destroy();
-                resolve(results);
                 if(error){
-                    reject(error)
+                    reject(error);
+                }else{
+                    resolve(results);
                 }
             });
         })
